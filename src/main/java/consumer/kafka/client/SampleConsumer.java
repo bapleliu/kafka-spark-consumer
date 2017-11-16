@@ -18,10 +18,9 @@
 
 package consumer.kafka.client;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Properties;
-
+import consumer.kafka.MessageAndMetadata;
+import consumer.kafka.ProcessedOffsetManager;
+import consumer.kafka.ReceiverLauncher;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.VoidFunction;
@@ -31,9 +30,9 @@ import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
-import consumer.kafka.MessageAndMetadata;
-import consumer.kafka.ProcessedOffsetManager;
-import consumer.kafka.ReceiverLauncher;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Properties;
 
 @SuppressWarnings("serial")
 public class SampleConsumer implements Serializable {
@@ -49,7 +48,7 @@ public class SampleConsumer implements Serializable {
     Properties props = new Properties();
     props.put("zookeeper.hosts", "localhost");
     props.put("zookeeper.port", "2181");
-    props.put("kafka.topic", "mytopic");
+    props.put("kafka.topic", "testtopic");
     props.put("kafka.consumer.id", "kafka-consumer");
     props.put("zookeeper.consumer.connection", "localhost:2181");
     // Optional Properties
@@ -59,7 +58,7 @@ public class SampleConsumer implements Serializable {
     props.put("consumer.backpressure.enabled", "true");
     props.put("consumer.num_fetch_to_buffer", "1");
 
-    SparkConf _sparkConf = new SparkConf();
+    SparkConf _sparkConf = new SparkConf().setAppName("sssss").setMaster("local");
     JavaStreamingContext jsc = new JavaStreamingContext(_sparkConf, Durations.seconds(30));
     // Specify number of Receivers you need.
     int numberOfReceivers = 1;
