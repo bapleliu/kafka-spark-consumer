@@ -18,18 +18,17 @@
 
 package consumer.kafka;
 
-import java.util.Properties;
-
 import kafka.server.KafkaServerStartable;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.test.TestingServer;
 
+import java.util.Properties;
+
 public class KafkaTestBroker {
 
-  private final int port = 49123;
+  private final int port = 9092;
   private KafkaServerStartable kafka;
   private TestingServer server;
   private String zookeeperConnectionString;
